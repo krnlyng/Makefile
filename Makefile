@@ -7,10 +7,9 @@ OBJ     = main.o
 .PHONY: release debug clean
 
 release: CFLAGS := $(CFLAGS) -O2
-debug:   CFLAGS := $(CFLAGS) -O0 -g3 -ggdb -pg
-
 release: $(OUT)
 
+debug:   CFLAGS := $(CFLAGS) -O0 -g3 -ggdb -pg
 debug:   $(OUT)
 
 clean:
