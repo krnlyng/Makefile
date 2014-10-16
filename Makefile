@@ -15,11 +15,11 @@ ifeq ($(DEBUG),1)
 endif
 
 ifeq ($(VERBOSE),1)
-	SILENTMSG := @true
-	SILENTCMD :=
+	MSG := @true
+	CMD :=
 else
-	SILENTMSG := @echo
-	SILENTCMD := @
+	MSG := @echo
+	CMD := @
 endif
 
 .PHONY: release clean
@@ -28,19 +28,19 @@ release: CFLAGS += -O2
 release: $(OUT)
 
 clean:
-	$(SILENTMSG) -e "\tCLEAN\t"
-	$(SILENTCMD)$(RM) $(OBJ) $(DEP) $(OUT)
+	$(MSG) -e "\tCLEAN\t"
+	$(CMD)$(RM) $(OBJ) $(DEP) $(OUT)
 
 $(OUT): $(OBJ)
-	$(SILENTMSG) -e "\tLINK\t$@"
-	$(SILENTCMD)$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+	$(MSG) -e "\tLINK\t$@"
+	$(CMD)$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 %.o: %.c %.d
-	$(SILENTMSG) -e "\tCC\t$@"
-	$(SILENTCMD)$(CC) $(CFLAGS) -c $< -o $@
+	$(MSG) -e "\tCC\t$@"
+	$(CMD)$(CC) $(CFLAGS) -c $< -o $@
 
 %.d: %.c
-	$(SILENTMSG) -e "\tDEP\t$@"
-	$(SILENTCMD)$(CC) $(CFLAGS) -MF $@ -MM $<
+	$(MSG) -e "\tDEP\t$@"
+	$(CMD)$(CC) $(CFLAGS) -MF $@ -MM $<
 
 -include $(DEP)
