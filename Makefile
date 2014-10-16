@@ -22,7 +22,9 @@ $(OUT): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 %.d: %.c
-	$(CC) $(CFLAGS) -MF $@ -MM $<
+	$(CC) $(CFLAGS) -MF $@.tmp -MM $<
+	@sed -e 's|.*:|$*.o:|' < $@.tmp > $@
+	@rm -rf $*.d.tmp
 
 ifneq ($(MAKECMDGOALS),clean)
 	-include $(OBJ:.o=.d)
