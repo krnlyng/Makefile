@@ -10,21 +10,28 @@ ifeq ($(DEBUG),1)
 	CFLAGS += -O0 -g3 -ggdb -pg
 endif
 
+SILENTMSG := @echo
+SILENTCMD := @
+
 .PHONY: release clean
 
 release: CFLAGS := $(CFLAGS) -O2
 release: $(OUT)
 
 clean:
-	$(RM) $(OBJ) $(OBJ:.o=.d) $(OUT)
+	$(SILENTMSG) -e "\tCLEAN\t"
+	$(SILENTCMD)$(RM) $(OBJ) $(OBJ:.o=.d) $(OUT)
 
 $(OUT): $(OBJ)
-	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+	$(SILENTMSG) -e "\tLINK\t$@"
+	$(SILENTCMD)$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 %.o: %.c %.d
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(SILENTMSG) -e "\tCC\t$@"
+	$(SILENTCMD)$(CC) $(CFLAGS) -c $< -o $@
 
 %.d: %.c
-	$(CC) $(CFLAGS) -MF $@ -MM $<
+	$(SILENTMSG) -e "\tDEP\t$@"
+	$(SILENTCMD)$(CC) $(CFLAGS) -MF $@ -MM $<
 
 -include $(OBJ:.o=.d)
