@@ -1,6 +1,6 @@
 CFLAGS  = -Wall -Werror -std=c99
 LDFLAGS =
-LDLIBS  = -lgsl -lgslcblas -lm
+LDLIBS  =
 OUT     = prog
 OBJ     = main.o
 
