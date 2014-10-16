@@ -25,5 +25,5 @@ $(OUT): $(OBJ)
 	$(CC) $(CFLAGS) -MF $@ -MM $<
 
 ifneq ($(MAKECMDGOALS),clean)
-	-include $(OBJ:.o=.d)
+-include $(OBJ:.o=.d)
 endif
