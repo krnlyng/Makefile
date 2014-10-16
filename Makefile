@@ -1,5 +1,6 @@
 OUT     := prog
-OBJ     := main.o
+SRC		:= main.c
+OBJ     := $(SRC:.c=.o)
 
 CFLAGS  := -Wall -Werror -std=c99
 LDFLAGS :=
