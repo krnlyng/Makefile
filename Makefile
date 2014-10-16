@@ -20,7 +20,7 @@ endif
 
 .PHONY: release clean
 
-release: CFLAGS := $(CFLAGS) -O2
+release: CFLAGS += -O2
 release: $(OUT)
 
 clean:
