@@ -10,8 +10,13 @@ ifeq ($(DEBUG),1)
 	CFLAGS += -O0 -g3 -ggdb -pg
 endif
 
-SILENTMSG := @echo
-SILENTCMD := @
+ifeq ($(VERBOSE),1)
+	SILENTMSG := @true
+	SILENTCMD :=
+else
+	SILENTMSG := @echo
+	SILENTCMD := @
+endif
 
 .PHONY: release clean
 
