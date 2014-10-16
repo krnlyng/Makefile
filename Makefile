@@ -7,6 +7,9 @@ CFLAGS  := -Wall -Werror -std=c99
 LDFLAGS :=
 LDLIBS  :=
 
+DEBUG   ?= 0
+VERBOSE ?= 0
+
 ifeq ($(DEBUG),1)
 	CFLAGS += -O0 -g3 -ggdb -pg
 endif
