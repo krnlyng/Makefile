@@ -43,4 +43,7 @@ $(OUT): $(OBJ)
 	$(MSG) -e "\tDEP\t$@"
 	$(CMD)$(CC) $(CFLAGS) -MF $@ -MM $<
 
+ifneq ($(MAKECMDGOALS),clean)
 -include $(DEP)
+endif
+
