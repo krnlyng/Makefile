@@ -6,13 +6,14 @@ CFLAGS  := -Wall -Werror -std=c99
 LDFLAGS :=
 LDLIBS  :=
 
-.PHONY: release debug clean
+ifeq ($(DEBUG),1)
+	CFLAGS += -O0 -g3 -ggdb -pg
+endif
+
+.PHONY: release clean
 
 release: CFLAGS := $(CFLAGS) -O2
 release: $(OUT)
-
-debug:   CFLAGS := $(CFLAGS) -O0 -g3 -ggdb -pg
-debug:   $(OUT)
 
 clean:
 	$(RM) $(OBJ) $(OBJ:.o=.d) $(OUT)
