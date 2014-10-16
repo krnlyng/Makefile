@@ -1,6 +1,7 @@
 OUT     := prog
 SRC		:= main.c
 OBJ     := $(SRC:.c=.o)
+DEP     := $(SRC:.c=.d)
 
 CFLAGS  := -Wall -Werror -std=c99
 LDFLAGS :=
@@ -25,7 +26,7 @@ release: $(OUT)
 
 clean:
 	$(SILENTMSG) -e "\tCLEAN\t"
-	$(SILENTCMD)$(RM) $(OBJ) $(OBJ:.o=.d) $(OUT)
+	$(SILENTCMD)$(RM) $(OBJ) $(DEP) $(OUT)
 
 $(OUT): $(OBJ)
 	$(SILENTMSG) -e "\tLINK\t$@"
@@ -39,4 +40,4 @@ $(OUT): $(OBJ)
 	$(SILENTMSG) -e "\tDEP\t$@"
 	$(SILENTCMD)$(CC) $(CFLAGS) -MF $@ -MM $<
 
--include $(OBJ:.o=.d)
+-include $(DEP)
