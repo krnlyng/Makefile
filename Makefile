@@ -1,8 +1,8 @@
-CFLAGS  = -Wall -Werror -std=c99
-LDFLAGS =
-LDLIBS  =
-OUT     = prog
-OBJ     = main.o
+CFLAGS  := -Wall -Werror -std=c99
+LDFLAGS :=
+LDLIBS  :=
+OUT     := prog
+OBJ     := main.o
 
 .PHONY: release debug clean
 
