@@ -24,4 +24,6 @@ $(OUT): $(OBJ)
 %.d: %.c
 	$(CC) $(CFLAGS) -MF $@ -MM $<
 
--include $(OBJ:.o=.d)
+ifneq ($(MAKECMDGOALS),clean)
+	-include $(OBJ:.o=.d)
+endif
