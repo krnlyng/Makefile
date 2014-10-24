@@ -1,17 +1,20 @@
-OUT     := prog
-SRC		:= main.c
-OBJ     := $(SRC:.c=.o)
-DEP     := $(SRC:.c=.d)
+OUT         := prog
+SRC_C       := main.c
+SRC_CPP		:=
+OBJ         := $(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o)
+DEP         := $(OBJ:.o=.d)
 
-CFLAGS  := -Wall -Werror -std=c99
-LDFLAGS :=
-LDLIBS  :=
+CFLAGS      := -Wall -Werror -pedantic -std=c99
+CXXFLAGS    := -Wall -Werror -pedantic -std=c++11
+LDFLAGS     :=
+LDLIBS      :=
 
-DEBUG   ?= 0
-VERBOSE ?= 0
+DEBUG       ?= 0
+VERBOSE     ?= 0
 
 ifeq ($(DEBUG),1)
 	CFLAGS += -O0 -g3 -ggdb -pg
+	CXXFLAGS += -O0 -g3 -ggdb -pg
 endif
 
 ifeq ($(VERBOSE),1)
@@ -25,6 +28,7 @@ endif
 .PHONY: release clean
 
 release: CFLAGS += -O2
+release: CXXFLAGS += -O2
 release: $(OUT)
 
 clean:
@@ -33,7 +37,7 @@ clean:
 
 $(OUT): $(OBJ)
 	$(MSG) -e "\tLINK\t$@"
-	$(CMD)$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+	$(CMD)$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 %.o: %.c %.d
 	$(MSG) -e "\tCC\t$@"
@@ -42,6 +46,14 @@ $(OUT): $(OBJ)
 %.d: %.c
 	$(MSG) -e "\tDEP\t$@"
 	$(CMD)$(CC) $(CFLAGS) -MF $@ -MM $<
+
+%.o: %.cpp %.d
+	$(MSG) -e "\tCXX\t$@"
+	$(CMD)$(CXX) $(CXXFLAGS) -c $< -o $@
+
+%.d: %.cpp
+	$(MSG) -e "\tDEP\t$@"
+	$(CMD)$(CXX) $(CXXFLAGS) -MF $@ -MM $<
 
 ifneq ($(MAKECMDGOALS),clean)
 -include $(DEP)
