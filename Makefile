@@ -1,7 +1,7 @@
 OUT         := prog
-SRC_C       := main.c
-SRC_CPP		:=
-OBJ         := $(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o)
+SRC         := main.c
+OBJ         := $(patsubst %.c, %.o, $(filter %.c, $(SRC)))
+OBJ         += $(patsubst %.cpp, %.o, $(filter %.cpp, $(SRC)))
 DEP         := $(OBJ:.o=.d)
 
 CFLAGS      := -Wall -Werror -pedantic -std=c99
