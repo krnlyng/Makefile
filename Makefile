@@ -27,8 +27,8 @@ endif
 
 .PHONY: release clean
 
-release: CFLAGS += -O2
-release: CXXFLAGS += -O2
+release: CFLAGS += -O3
+release: CXXFLAGS += -O3
 release: $(OUT)
 
 clean:
